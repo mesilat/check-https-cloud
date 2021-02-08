@@ -1,0 +1,41 @@
+version: '2'
+
+networks:
+  intranet:
+    external: true
+
+services:
+  spring:
+    restart: unless-stopped
+    image: mesilat/check-https-cert-service
+    container_name: spring
+    networks:
+      intranet:
+        ipv4_address: 172.20.0.3
+    environment:
+      CONTEXT: /cert
+
+  plugin:
+    restart: unless-stopped
+    image: mesilat/check-https-cert-plugin
+    container_name: plugin
+    networks:
+      intranet:
+        ipv4_address: 172.20.0.4
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+
+  haproxy:
+    restart: unless-stopped
+    image: haproxy
+    container_name: haproxy
+    networks:
+      intranet:
+        ipv4_address: 172.20.0.2
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /var/docker/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - /var/docker/haproxy.pem:/usr/local/etc/haproxy/haproxy.pem

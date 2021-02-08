@@ -1,0 +1,32 @@
+{{!< layout}}
+<span id="check-cert-macro-{{host}}-{{port}}">Host: {{host}}, port: {{port}}</span>
+<link rel="stylesheet" href="/css/addon.css" media="all">
+<script>
+  // AP.user.getLocale(function(locale){
+    const $span = $(document.getElementById("check-cert-macro-{{host}}-{{port}}"));
+
+    $.ajax({
+    	type: "GET",
+    	url: "https://checkcert.mesilat.com/cert/notAfter?host={{host}}&port={{port}}",
+    	dataType: "json",
+    	success: function(data) {
+        $span.text(`${data.expires}`);
+        if (data.days > 7){
+            $span.addClass('com-mesilat-cert-ok');
+        } else if (data.days > 3) {
+            $span.addClass('com-mesilat-cert-warn');
+        } else {
+            $span.addClass('com-mesilat-cert-error');
+        }
+    	},
+      error: function(jqxhr) {
+        try {
+          const e = JSON.parse(jqxhr.responseText);
+          $span.text(e.message);
+        } catch {
+          $span.text(jqxhr.responseText);
+        }
+      }
+    });
+  // });
+</script>

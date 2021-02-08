@@ -1,0 +1,6 @@
+node_modules
+credentials.json
+docker-compose.yml
+Dockerfile
+haproxy
+java
