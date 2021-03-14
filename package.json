@@ -14,9 +14,9 @@
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
     "express-hbs": "*",
-    "jugglingdb-sqlite3": "0.0.5",
     "morgan": "^1.6.1",
-    "sequelize": "^4.38.0",
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2",
     "static-expiry": ">=0.0.5",
     "urijs": "1.19.2"
   }

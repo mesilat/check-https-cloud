@@ -38,11 +38,11 @@
     // To instead configure, say, a PostgreSQL store, the following could be
     // used:
     //
-    //   "store": {
-    //     "adapter": "jugglingdb",
-    //     "type": "postgres",
-    //     "url": "postgres://localhost/my_addon_database"
-    //   },
+    // "store": {
+    //   "adapter": "jugglingdb",
+    //   "type": "postgres",
+    //   "url": "postgres://connect_user:pifagor@postgres/plugindb"
+    // },
   },
 
   // This is the production add-on configuration, which is enabled by setting
@@ -66,6 +66,12 @@
       "*.atlassian.net",
       "*.atlassian.com",
       "*.jira.com"
-    ]
+    ],
+
+    "store": {
+      "adapter": "sequelize",
+      "dialect": "sqlite",
+      "storage": "data/store.db"
+    }
   }
 }

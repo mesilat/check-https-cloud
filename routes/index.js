@@ -14,10 +14,14 @@ module.exports = function (app, addon) {
   });
 
   app.get('/macro', addon.authenticate(), function (req, res) {
-    res.render('macro.hbs', {
-      host: req.query['host'],
-      port: req.query['port']
-    });
+    if (req.query['lic'] === 'active') {
+      res.render('macro.hbs', {
+        host: req.query['host'],
+        port: req.query['port']
+      });
+    } else {
+      res.render('nolicense.hbs');
+    }
   });
 
   // load any additional files you have in routes and apply those to the app
